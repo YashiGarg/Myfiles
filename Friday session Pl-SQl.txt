@@ -1,0 +1,488 @@
+friday session 
+
+
+
+
+
+
+
+
+SQL> /
+Enter value for a: 80
+old   5:        v_deptno :=&a;
+new   5:        v_deptno :=80;
+Enter value for b: DB
+old   6:         v_dname :=&b;
+new   6:         v_dname :=DB;
+        v_dname :=DB;
+                  *
+ERROR at line 6:
+ORA-06550: line 6, column 19:
+PLS-00201: identifier 'DB' must be declared
+ORA-06550: line 6, column 9:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2         v_deptno dept.deptno%TYPE;
+  3         v_dname dept.dname%TYPE;
+  4  BEGIN
+  5         v_deptno :=&a;
+  6          v_dname :='&b';
+  7          INSERT INTO dept values(v_deptno,v_dname,'DELHI');
+  8* END;
+SQL> /
+Enter value for a: 80
+old   5:        v_deptno :=&a;
+new   5:        v_deptno :=80;
+Enter value for b: DB
+old   6:         v_dname :='&b';
+new   6:         v_dname :='DB';
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2         v_dept dept%ROWTYPE;
+  3  BEGIN
+  4         v_deptno.deptno :=&a;
+  5          v_dname.dname :='&b';
+  6          INSERT INTO dept(deptno,dname)
+  7          values(v_dept.deptno,v_dept.dname);
+  8* END;
+  9  /
+Enter value for a: 90
+old   4:        v_deptno.deptno :=&a;
+new   4:        v_deptno.deptno :=90;
+Enter value for b: IT
+old   5:         v_dname.dname :='&b';
+new   5:         v_dname.dname :='IT';
+       v_deptno.deptno :=90;
+       *
+ERROR at line 4:
+ORA-06550: line 4, column 8:
+PLS-00201: identifier 'V_DEPTNO.DEPTNO' must be declared
+ORA-06550: line 4, column 8:
+PL/SQL: Statement ignored
+ORA-06550: line 5, column 9:
+PLS-00201: identifier 'V_DNAME.DNAME' must be declared
+ORA-06550: line 5, column 9:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2         v_dept dept%ROWTYPE;
+  3  BEGIN
+  4         v_dept.deptno :=&a;
+  5          v_dept.dname :='&b';
+  6          INSERT INTO dept(deptno,dname)
+  7          values(v_dept.deptno,v_dept.dname);
+  8* END;
+SQL> /
+Enter value for a: 90
+old   4:        v_dept.deptno :=&a;
+new   4:        v_dept.deptno :=90;
+Enter value for b: IT
+old   5:         v_dept.dname :='&b';
+new   5:         v_dept.dname :='IT';
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME          LOC
+---------- -------------- -------------
+        10 ACCOUNTING     NEW YORK
+        20 RESEARCH       DALLAS
+        30 SALES          CHICAGO
+        40 OPERATIONS     BOSTON
+        80 DB             DELHI
+        90 IT
+
+6 rows selected.
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1* select * from dept
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2          TYPE recname is RECORD
+  3          (customer_id NUMBER,
+  4           customer_name VARCHAR(20));
+  5           var_rec recname;
+  6  BEGIN
+  7           var_rec.customer_id:20;
+  8           var_rec.customer_name:='Smith';
+  9           dbms_output.put_line(var_rec.customer_id||' '|| var_rec.customer_name);
+ 10  END;
+ 11*  /
+ 12  /
+SP2-0552: Bind variable "20" not declared.
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2          TYPE recname is RECORD
+  3          (customer_id NUMBER,
+  4           customer_name VARCHAR(20));
+  5           var_rec recname;
+  6  BEGIN
+  7           var_rec.customer_id:=20;
+  8           var_rec.customer_name:='Smith';
+  9           dbms_output.put_line(var_rec.customer_id||' '|| var_rec.customer_name);
+ 10  END;
+ 11*  /
+SQL> /
+ /
+ *
+ERROR at line 11:
+ORA-06550: line 11, column 2:
+PLS-00103: Encountered the symbol "/" The symbol "/" was ignored.
+
+
+SQL> /
+ /
+ *
+ERROR at line 11:
+ORA-06550: line 11, column 2:
+PLS-00103: Encountered the symbol "/" The symbol "/" was ignored.
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2          TYPE recname is RECORD
+  3          (customer_id NUMBER,
+  4           customer_name VARCHAR(20));
+  5           var_rec recname;
+  6  BEGIN
+  7           var_rec.customer_id:=20;
+  8           var_rec.customer_name:='Smith';
+  9           dbms_output.put_line(var_rec.customer_id||' '|| var_rec.customer_name);
+ 10  END;
+ 11*  /
+ 12  /
+ /
+ *
+ERROR at line 11:
+ORA-06550: line 11, column 2:
+PLS-00103: Encountered the symbol "/" The symbol "/" was ignored.
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1  DECLARE
+  2          TYPE recname is RECORD
+  3          (customer_id NUMBER,
+  4           customer_name VARCHAR(20));
+  5           var_rec recname;
+  6  BEGIN
+  7           var_rec.customer_id:=20;
+  8           var_rec.customer_name:='Smith';
+  9           dbms_output.put_line(var_rec.customer_id||' '|| var_rec.customer_name);
+ 10* END;
+ 11  /
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SYSTEMOUTPUT ON
+SP2-0735: unknown SET option beginning "SYSTEMOUTP..."
+SQL> set serveroutput on
+SQL> /
+20 Smith
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1   DECLARE
+  2          v_dept dept%ROWTYPE;
+  3   BEGIN
+  4     SELECT * INTO v_dept FROM dept
+  5     WHERE dname='SALES';
+  6          dbms_output.put_line('The location for given department is:' || v.dept.loc);
+  7*  END;
+  8  /
+        dbms_output.put_line('The location for given department is:' || v.dept.loc);
+                                                                               *
+ERROR at line 6:
+ORA-06550: line 6, column 80:
+PLS-00225: subprogram or cursor 'V' reference is out of scope
+ORA-06550: line 6, column 9:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1   DECLARE
+  2          v_dept dept%ROWTYPE;
+  3   BEGIN
+  4     SELECT * INTO v_dept FROM dept
+  5     WHERE dname='SALES';
+  6          dbms_output.put_line('The location for given department is:' || v_dept.loc);
+  7*  END;
+SQL> /
+The location for given department is:CHICAGO
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1   DECLARE
+  2          v_loc dept.loc%TYPE;
+  3   BEGIN
+  4     SELECT * INTO v_dept FROM dept
+  5     WHERE dname='SALES';
+  6          dbms_output.put_line('The location for given department is:' || v_loc);
+  7*  END;
+SQL> /
+        SELECT * INTO v_dept FROM dept
+                      *
+ERROR at line 4:
+ORA-06550: line 4, column 16:
+PLS-00201: identifier 'V_DEPT' must be declared
+ORA-06550: line 4, column 23:
+PL/SQL: ORA-00904: : invalid identifier
+ORA-06550: line 4, column 2:
+PL/SQL: SQL Statement ignored
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1   DECLARE
+  2          v_loc dept.loc%TYPE;
+  3   BEGIN
+  4     SELECT * INTO v_dept.loc FROM dept
+  5     WHERE dname='SALES';
+  6          dbms_output.put_line('The location for given department is:' || v_loc);
+  7*  END;
+SQL> /
+        SELECT * INTO v_dept.loc FROM dept
+                      *
+ERROR at line 4:
+ORA-06550: line 4, column 16:
+PLS-00201: identifier 'V_DEPT.LOC' must be declared
+ORA-06550: line 4, column 27:
+PL/SQL: ORA-00904: : invalid identifier
+ORA-06550: line 4, column 2:
+PL/SQL: SQL Statement ignored
+
+
+SQL> ed
+Wrote file C:/DEMO/sqleditor.txt
+
+  1   DECLARE
+  2          v_dept dept%ROWTYPE;
+  3   BEGIN
+  4          v_dept.dname :=&a;
+  5     SELECT loc INTO v_dept.loc FROM dept
+  6     WHERE dname= v_dept.dname;
+  7          dbms_output.put_line('The location for given department is:' || v_dept.loc);
+  8*  END;
+SQL> /
+Enter value for a: 'SALES'
+old   4:         v_dept.dname :=&a;
+new   4:         v_dept.dname :='SALES';
+The location for given department is:CHICAGO
+
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+EXCEPTION 
+
+
+
+
+ 1    BEGIN
+ 2       dbms_output.put_line(4/0);
+ 3  EXCEPTION
+ 4     WHEN ZERO_DIVIDE THEN
+ 5     dbms_output.put_line('The denominator can't be zero');
+ 6* END;
+ 7  /
+RROR:
+RA-01756: quoted string not properly terminated
+
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1    BEGIN
+ 2       dbms_output.put_line(4/0);
+ 3  EXCEPTION
+ 4     WHEN ZERO_DIVIDE THEN
+ 5     dbms_output.put_line('The denominator can't be zero');
+ 6* END;
+QL> /
+RROR:
+RA-01756: quoted string not properly terminated
+
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1    BEGIN
+ 2       dbms_output.put_line(4/0);
+ 3  EXCEPTION
+ 4     WHEN ZERO_DIVIDE THEN
+ 5     dbms_output.put_line('The denominator can not be zero');
+ 6* END;
+QL> /
+he denominator can not be zero
+
+L/SQL procedure successfully completed.
+
+QL> ED
+rote file C:/DEMO/sqleditor.txt
+
+ 1  DECLARE
+ 2     exp_diff EXCEPTION;
+ 3     v_a NUMBER :=5;
+ 4     V_b NUMBER :=10;
+ 5  BEGIN
+ 6     IF v_a < v_b THEN
+ 7             RAISE exp_diff;
+ 8     END IF;
+ 9         dbms_output.put_line('Difference is:' || (v_a-v_b));
+10  EXCEPTION
+11     WHEN exp_diff THEN
+12     dbms_output.put_line('The value of a should always be greater than b');
+13* END;
+QL> /
+he value of a should always be greater than b
+
+L/SQL procedure successfully completed.
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1  DECLARE
+ 2     exp_diff EXCEPTION;
+ 3     v_a NUMBER :=4;
+ 4     V_b NUMBER :=5;
+ 5  BEGIN
+ 6     IF v_a < v_b THEN
+ 7             RAISE exp_diff;
+ 8     END IF;
+ 9         dbms_output.put_line('Difference is:' || (v_a-v_b));
+10  EXCEPTION
+11     WHEN exp_diff THEN
+12     dbms_output.put_line('The value of a should always be greater than b');
+13* END;
+QL> /
+he value of a should always be greater than b
+
+L/SQL procedure successfully completed.
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1  DECLARE
+ 2     exp_diff EXCEPTION;
+ 3     v_a NUMBER :=9;
+ 4     V_b NUMBER :=5;
+ 5  BEGIN
+ 6     IF v_a < v_b THEN
+ 7             RAISE exp_diff;
+ 8     END IF;
+ 9         dbms_output.put_line('Difference is:' || (v_a-v_b));
+10  EXCEPTION
+11     WHEN exp_diff THEN
+12     dbms_output.put_line('The value of a should always be greater than b');
+13* END;
+QL> /
+ifference is:4
+
+L/SQL procedure successfully completed.
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1  DECLARE
+ 2     exp_diff EXCEPTION;
+ 3     v_a NUMBER :=9;
+ 4     V_b NUMBER :=5;
+ 5  BEGIN
+ 6     IF v_a < v_b THEN
+ 7             RAISE exp_diff;
+ 8     END IF;
+ 9         dbms_output.put_line('Difference is:' || (v_a-v_b));
+10       dbms_output.put_line(4/0);
+11  EXCEPTION
+12     WHEN exp_diff THEN
+13     dbms_output.put_line('The value of a should always be greater than b');
+14     WHEN OTHERS THEN
+15       dbms_output.put_line('denomintor can not be zero');
+16* END;
+QL> /
+ifference is:4
+enomintor can not be zero
+
+L/SQL procedure successfully completed.
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1  DECLARE
+ 2     exp_diff EXCEPTION;
+ 3     v_a NUMBER :=1;
+ 4     V_b NUMBER :=5;
+ 5  BEGIN
+ 6     IF v_a < v_b THEN
+ 7             RAISE exp_diff;
+ 8     END IF;
+ 9         dbms_output.put_line('Difference is:' || (v_a-v_b));
+10       dbms_output.put_line(4/0);
+11  EXCEPTION
+12     WHEN exp_diff THEN
+13     dbms_output.put_line('The value of a should always be greater than b');
+14     WHEN OTHERS THEN
+15       dbms_output.put_line('denomintor can not be zero');
+16* END;
+QL> /
+he value of a should always be greater than b
+
+L/SQL procedure successfully completed.
+
+QL> ed
+rote file C:/DEMO/sqleditor.txt
+
+ 1  DECLARE
+ 2     exp_diff EXCEPTION;
+ 3     v_a NUMBER :=11;
+ 4     V_b NUMBER :=5;
+ 5  BEGIN
+ 6     IF v_a < v_b THEN
+ 7             RAISE exp_diff;
+ 8     END IF;
+ 9         dbms_output.put_line('Difference is:' || (v_a-v_b));
+10       dbms_output.put_line(4/0);
+11  EXCEPTION
+12     WHEN exp_diff THEN
+13     dbms_output.put_line('The value of a should always be greater than b');
+14     WHEN OTHERS THEN
+15       dbms_output.put_line('denomintor can not be zero');
+16* END;
+QL>
