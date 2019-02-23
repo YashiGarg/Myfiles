@@ -1,0 +1,57 @@
+
+
+  ASSIGNMENT 1.1: Data Query Language 
+
+
+SQL> select staff_name as staffname, design_code as desihnationcode from staff_masters where (HIREDATE<'01-JAN-2003') AND staff_sa
+l BETWEEN 12000 AND 25000;
+
+STAFFNAME                                          DESIHNATIONCODE
+-------------------------------------------------- ---------------
+Shyam                                                          102
+Mohan                                                          102
+Anil                                                           102
+
+
+
+
+
+SQL> select staff_code,staff_name, design_code from staff_masters where (MONTHS_BETWEEN(SYSDATE,HIREDATE))>216 order by HIREDATE D
+ESC;
+
+STAFF_CODE STAFF_NAME                                         DESIGN_CODE
+---------- -------------------------------------------------- -----------
+    100005 John                                                       106
+
+
+
+SQL> select * from staff_masters where Mgr_code is null;
+
+no rows selected
+
+
+
+SQL> select * from book_master where book_pub_year BETWEEN 2001 AND 2004 AND book_name like '%[&]%';
+
+no rows selected
+
+
+
+SQL> select staff_name from staff_master where staff_name like '%_%';
+
+STAFF_NAME
+--------------------------------------------------
+Arvind
+Shyam
+Mohan
+Anil
+John
+Allen
+Smith
+Raviraj
+Rahul
+Ram
+
+10 rows selected.
+
+
