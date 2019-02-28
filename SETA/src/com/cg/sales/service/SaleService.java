@@ -9,15 +9,13 @@ import com.cg.sales.dao.ISalesDao;
 import com.cg.sales.dao.SalesDao;
 
 public class SaleService implements ISalesService{
-ISalesDao salesdao=(ISalesDao) new SalesDao();
-	@Override
+static ISalesDao salesdao=(ISalesDao) new SalesDao();
 	public HashMap<Integer, Sales> insertdetails(Sales sale) {
 		// TODO Auto-generated method stub
 		return salesdao.insertdetails(sale);
 	}
 
-	@Override
-	public boolean ValidateCode(int prodCode) {
+	public  boolean ValidateCode(int prodCode) {
 		// TODO Auto-generated method stub
 		String code=Integer.toString(prodCode);
 		Pattern pattern=Pattern.compile("[1]{1}[0]{2}[1-4]{1}");
@@ -35,7 +33,6 @@ ISalesDao salesdao=(ISalesDao) new SalesDao();
 		return false;
 	}
 
-	@Override
 	public boolean ValidateCategory(String category) {
 		// TODO Auto-generated method stub
 		if(category.equals("Electronics") || category.equals("Toys"))

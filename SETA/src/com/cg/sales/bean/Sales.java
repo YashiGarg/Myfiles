@@ -14,10 +14,9 @@ public Sales() {
 	super();
 	// TODO Auto-generated constructor stub
 }
-public Sales(int saleId, int prodCode, String productName, String category, LocalDate saleDate, int quantity,
-		float lineTotal) {
+
+public Sales(int prodCode, String productName, String category, LocalDate saleDate, int quantity, float lineTotal) {
 	super();
-	this.saleId = saleId;
 	this.prodCode = prodCode;
 	this.productName = productName;
 	this.category = category;
@@ -25,6 +24,7 @@ public Sales(int saleId, int prodCode, String productName, String category, Loca
 	this.quantity = quantity;
 	this.lineTotal = lineTotal;
 }
+
 public int getSaleId() {
 	return saleId;
 }
